@@ -1,0 +1,35 @@
+<h1>Test here</h1>
+
+<h2>Table of contents</h2>
+
+<ol>
+  {% for document in documents %}
+  <li>{{document.title}}</li>
+  {% endfor %}
+</ol>
+
+<hr />
+
+{% for document in documents %}
+    <h1>{{document.title}}</h1>
+    <small>{{document.mdn_url}}</small>
+
+    {% for section in document.body %}
+       <section>
+       {% if section.type == "prose" %}
+
+          {% if section.value.title %}
+            {% if section.value.isH3 %}
+              <h3>{{section.value.title}}</h3>
+            {% else %}
+              <h2>{{section.value.title}}</h2>
+            {% endif %}
+
+          {% endif %}
+          <div class="prose">{{section.value.content|safe}}</div>
+        {% else %}
+          <code>{{section.type}}</code>??
+        {% endif %}
+        </section>
+    {% endfor %}
+{% endfor %}
